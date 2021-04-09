@@ -3,32 +3,38 @@ const url = "https://api.github.com/orgs/";
 const listElem = document.getElementById('resultList');
 const backdrop = document.getElementById('backdrop');
 const modal = document.getElementById('modal');
+const noResults = document.getElementById('noResults');
+const searchButton = document.getElementById('searchButton');
+const input = document.getElementById('orgName')
 
 let projects = null;
 
-backdrop.addEventListener('click', function() {
+//Listeners
+backdrop.addEventListener('click', function () {
   closeModal();
 });
-document.getElementById('searchButton')
-  .addEventListener('click', function () {
-    getProjects(document.getElementById('orgName').value);
-  })
+searchButton.addEventListener('click', function () {
+  getProjects(input.value);
+});
 
+//XHR request
 function getProjects(org) {
   xhr.open("GET", url + org + '/repos?per_page=100', true);
   xhr.responseType = 'json';
   xhr.send();
   xhr.onload = function () {
+    noResults.classList.remove('visible')
     if (xhr.status == 200) {
       projects = this.response;
-      console.log(projects);
       refreshResultList(projects);
     } else {
-      console.error('something went wrong')
+      listElem.innerHTML = '';
+      noResults.classList.add('visible')
     }
   }
 }
 
+//generating list output
 function refreshResultList(projects) {
   listElem.innerHTML = '';
   projects.forEach(item => {
@@ -41,7 +47,6 @@ function refreshResultList(projects) {
     })
   })
 }
-
 
 function createResult(item) {
   let result = document.createElement('div');
@@ -57,26 +62,28 @@ function createResult(item) {
     '<div class="result-title">' +
     '<p><b>Repo</b>: ' + item.name + '</p>' +
     '<div class="star"></div><p>' + item.stargazers_count + '</div>';
-    if (item.description) content += '<p><b>Description</b>: ' + item.description + '</p>';
-    content += '<div class="btn btn-details">Details</div>'
+  if (item.description) content += '<p><b>Description</b>: ' + item.description + '</p>';
+  content += '<div class="btn btn-details">Details</div>'
 
   result.innerHTML = content;
   listElem.append(result);
 }
 
-function openModal(item) {
+
+//modal functions
+function openModal(content) {
   modal.innerHTML =
-    '<p><b>' + item.name + '</b></p><hr/>' +
+    '<p><b>' + content.name + '</b></p><hr/>' +
     '<p><b>URL: </b>' +
-    '<a target="_BLANK" href="' + item.url + '">' +
-    item.url + '</a></p>' +
+    '<a target="_BLANK" href="' + content.url + '">' +
+    content.url + '</a></p>' +
     '<p><b>ssh: </b>' +
-    '<a target="_BLANK" href="' + item.ssh + '">' +
-    item.ssh + '</a></p>' +
+    '<a target="_BLANK" href="' + content.ssh + '">' +
+    content.ssh + '</a></p>' +
     '<p><b>git: </b>' +
-    '<a target="_BLANK" href="' + item.git + '">' +
-    item.git + '</a></p>' +
-    '<p><b>Size: </b>' + item.size + '</p>'
+    '<a target="_BLANK" href="' + content.git + '">' +
+    content.git + '</a></p>' +
+    '<p><b>Size: </b>' + content.size + '</p>'
   modal.classList.add('visible');
   backdrop.classList.add('visible');
 }

@@ -118,8 +118,14 @@ body {
   display: none;
 }
 .modal.visible,
-.backdrop.visible {
+.backdrop.visible,
+.no-results.visible {
   display: block;
+}
+
+.no-results {
+  text-align: center;
+  display: none;
 }
 
 .star {
