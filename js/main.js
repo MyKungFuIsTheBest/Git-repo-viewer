@@ -29,6 +29,7 @@ function getProjects(org) {
       refreshResultList(projects);
     } else {
       listElem.innerHTML = '';
+      noResults.children[0].innerHTML = input.value;
       noResults.classList.add('visible')
     }
   }
