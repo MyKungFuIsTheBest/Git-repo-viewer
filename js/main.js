@@ -3,9 +3,10 @@ const url = "https://api.github.com/orgs/";
 const listElem = document.getElementById('resultList');
 const backdrop = document.getElementById('backdrop');
 const modal = document.getElementById('modal');
-const errorBox = document.getElementById('errorBox');
+const messageBox = document.getElementById('messageBox');
 const searchButton = document.getElementById('searchButton');
 const input = document.getElementById('orgName')
+const loader = document.getElementById('loader')
 const errors = { noResults: 'No results for ', noQuery: 'Please type something' }
 
 let projects = null;
@@ -20,24 +21,26 @@ searchButton.addEventListener('click', function () {
 
 //XHR request
 function getProjects(org) {
-  if (input.value.length) {
+  if (input.value.length && org) {
+    loader.classList.add('visible');
+    messageBox.classList.remove('visible')
     xhr.open("GET", url + org + '/repos?per_page=100', true);
     xhr.responseType = 'json';
     xhr.send();
     xhr.onload = function () {
-      errorBox.classList.remove('visible')
+      loader.classList.remove('visible');
       if (xhr.status == 200) {
         projects = this.response;
         refreshResultList(projects);
       } else {
         listElem.innerHTML = '';
-        errorBox.innerHTML = errors.noResults + '"' + input.value + '"';
-        errorBox.classList.add('visible');
+        messageBox.innerHTML = errors.noResults + '"' + input.value + '"';
+        messageBox.classList.add('visible');
       }
     }
   } else {
-    errorBox.innerHTML = errors.noQuery;
-    errorBox.classList.add('visible');
+    messageBox.innerHTML = errors.noQuery;
+    messageBox.classList.add('visible');
   }
 }
 

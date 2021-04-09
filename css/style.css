@@ -81,6 +81,7 @@ body {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+
 .btn-search:hover {
   background-color: #375792;
 }
@@ -89,6 +90,7 @@ body {
   background-color: #369c36;
   margin-left: auto;
 }
+
 .btn-details:hover {
   background-color: #2a862a;
 }
@@ -117,13 +119,36 @@ body {
   max-height: 90vh;
   display: none;
 }
+
 .modal.visible,
 .backdrop.visible,
-.error-box.visible {
+.loader.visible,
+.message-box.visible {
   display: block;
 }
 
-.error-box {
+.loader {
+  display: none;
+  position: relative;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(#4167ad 0%, white 50%, white 100%);
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+.loader:after {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-radius: 100%;
+  content: '';
+  background-color: white;
+  width: 80px;
+  height: 80px;
+}
+
+.message-box {
   text-align: center;
   display: none;
 }
@@ -134,4 +159,9 @@ body {
   display: inline-block;
   height: 16px;
   width: 16px;
+}
+
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
 }
