@@ -6,6 +6,9 @@ const modal = document.getElementById('modal');
 
 let projects = null;
 
+backdrop.addEventListener('click', function() {
+  closeModal();
+});
 document.getElementById('searchButton')
   .addEventListener('click', function () {
     getProjects(document.getElementById('orgName').value);
@@ -76,9 +79,6 @@ function openModal(item) {
     '<p><b>Size: </b>' + item.size + '</p>'
   modal.classList.add('visible');
   backdrop.classList.add('visible');
-  backdrop.addEventListener('click', function() {
-    closeModal();
-  });
 }
 
 function closeModal() {
