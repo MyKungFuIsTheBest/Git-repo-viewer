@@ -119,11 +119,11 @@ body {
 }
 .modal.visible,
 .backdrop.visible,
-.no-results.visible {
+.error-box.visible {
   display: block;
 }
 
-.no-results {
+.error-box {
   text-align: center;
   display: none;
 }
