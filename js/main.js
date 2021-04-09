@@ -62,7 +62,6 @@ function createResult(item) {
 }
 
 function openModal(item) {
-  console.log(item)
   modal.innerHTML =
     '<p><b>' + item.name + '</b></p><hr/>' +
     '<p><b>URL: </b>' +
