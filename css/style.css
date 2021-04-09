@@ -49,6 +49,17 @@ body {
 .result p {
   margin-top: 0;
   margin-bottom: 10px;
+  display: inline-block;
+}
+
+.result .star {
+  margin-left: auto;
+}
+
+.result-title {
+  display: flex;
+  align-items: end;
+  width: 100%;
 }
 
 .result p:last-child {
@@ -63,29 +74,37 @@ body {
   cursor: pointer;
   background-color: #4167ad;
   border: 0;
+  transition: linear 0.2s;
 }
 
 .btn-search {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-
-.btn-details {
-  background: #369c36;
-  margin-left: auto;
+.btn-search:hover {
+  background-color: #375792;
 }
 
-.backdrop.visible {
+.btn-details {
+  background-color: #369c36;
+  margin-left: auto;
+}
+.btn-details:hover {
+  background-color: #2a862a;
+}
+
+.backdrop {
   background-color: rgba(50, 50, 50, 0.5);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  display: none;
 }
 
-.modal.visible {
-  padding: 16px 20px;
+.modal {
+  padding: 16px;
   border-radius: 4px;
   background: white;
   position: fixed;
@@ -93,7 +112,20 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
-  width: 400px;
+  width: 600px;
   max-width: 90vw;
   max-height: 90vh;
+  display: none;
+}
+.modal.visible,
+.backdrop.visible {
+  display: block;
+}
+
+.star {
+  background: gray;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  display: inline-block;
+  height: 16px;
+  width: 16px;
 }
