@@ -29,7 +29,7 @@ function getProjects(org) {
     xhr.send();
     xhr.onload = function () {
       loader.classList.remove('visible');
-      if (xhr.status == 200) {
+      if (xhr.status == 200 && this.response.length) {
         projects = this.response;
         refreshResultList(projects);
       } else {
